@@ -1,0 +1,260 @@
+   html {
+            background: rgba(233, 225, 225, 0.479);
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto;
+            width: 75vw;
+            background: #6fd5e659;
+            padding: 25px;
+        }
+        
+        .container h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(59, 55, 55);
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+        
+        .container h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(59, 55, 55);
+            font-size: 20px;
+            margin-top: 5px;
+        }
+        
+        .form-wrapper {
+            margin: 15px;
+            width: 100%;
+        }
+        
+        .form {
+            width: 90%;
+        }
+        
+        /* #studentimage {
+            height: 80px;
+            width: 80px;
+            border-radius: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(59, 55, 55);
+            margin-left: 48rem;
+        } */
+        
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            color: Black;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        form table{
+            border: 1px solid black;
+            margin-left: auto;
+        }
+
+        form table tr,td{
+            outline: 1px solid black;
+            padding: 1.5rem;
+        }
+
+        form table tr td img{
+            height: 80px;
+            width: 70px;
+            border-radius: 10px;
+        }
+        
+        .form-item {
+            display: flex;
+            margin: auto;
+            align-items: center;
+            width: 80%;
+        }
+        
+        .form-item label {
+            width: 150px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .form-item input {
+            margin: 5px 15px;
+            height: 22px;
+            width: 100%;
+            font-size: 13px;
+            border: 1px black solid;
+            border-radius: 5px;
+        }
+        
+        .form-item select {
+            margin: 5px 0px;
+            width: max-content;
+        }
+        
+        .genders {
+            display: flex;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-left: 16px;
+            font-size: 14px;
+        }
+        
+        .genders input {
+            width: 20px;
+        }
+        
+        hr {
+            margin-top: 15px;
+            width: 80%;
+        }
+        
+        h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        .same-perm{
+            display: flex;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 13px;
+            margin: 5px 105px;
+        }
+        
+        .register {
+            margin: 25px;
+            background: #1e90ff;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 7px 20px;
+            border-radius: 5px;
+            color: #fbfbfb;
+            border: 0;
+            cursor: pointer;
+        }
+        
+        .register:hover {
+            color: #3a3636;
+        }
+        
+        @media screen and (max-width: 640px) {
+            .container {
+                width: 90vw;
+                padding: 10px 5px;
+                overflow: scroll;
+            }
+            form table{
+                margin-left: 2rem;
+                margin-right: 2rem;
+
+            }
+            .form-item label {
+                font-size: 14px;
+            }
+            .form-item input {
+                margin: 5px 10px;
+                font-size: 12px;
+            }
+            .genders {
+                margin-left: 10px;
+                font-size: 13px;
+            }
+            .genders input {
+                width: 15px;
+            }
+            .same-perm{
+
+            font-size: 13px;
+            margin: 5px 50px;
+        }
+            .register {
+                margin: 25px;
+                font-size: 15px;
+                padding: 7px 10px;
+            }
+        }
+    
+        #myImg1:hover,#myImg2:hover,#myImg3:hover,#myImg4:hover {opacity: 0.7;}
+
+        #myImg1,#myImg2,#myImg3,#myImg4{
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+        
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 99; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+        
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 75%;
+        }
+        
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+        
+        
+        @-webkit-keyframes zoom {
+            from {-webkit-transform:scale(1)}
+            to {-webkit-transform:scale(2)}
+        }
+        @keyframes zoom {
+            from {transform:scale(0.4)}
+            to {transform:scale(1)}
+        }
+        
+        @-webkit-keyframes zoom-out {
+            from {transform:scale(1)}
+            to {transform:scale(0)}
+        }
+        @keyframes zoom-out {
+            from {transform:scale(1)}
+            to {transform:scale(0)}
+        }
+        
+        /* Add Animation */
+        .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+        
+        .out {
+            animation-name: zoom-out;
+            animation-duration: 0.6s;
+          }
+        
+          /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 100%;
+            }
+        }

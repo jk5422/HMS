@@ -1,0 +1,43 @@
+.card{
+
+    border-radius: 1rem;
+    width:550px;
+    height:max-content;
+}
+
+@media screen and (max-width: 480px)
+{
+
+  .card{
+    overflow-x: auto;
+    width: auto;
+  }
+}
+
+/*** alert ***/
+
+.alert{
+	 top: 17rem;
+    left: 35rem;
+    position: absolute;
+    width:fit-content;
+    border: 2px solid black;
+    font-size: larger;
+    z-index: 5;
+   }
+
+@media screen and (max-width: 480px)
+{
+
+  .alert{
+    top: 8rem;
+    left: 10px;
+    position: absolute;
+    width:fit-content;
+    border: 2px solid black;
+    font-size: larger;
+    z-index: 5;
+  }
+}
+
+

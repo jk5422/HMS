@@ -1,0 +1,104 @@
+.container{
+  margin-top: 3rem;
+  
+}
+
+
+.container .d-flex{
+  display: flex;
+  flex-direction: row;
+  border-radius: 0 0 15px 15px;
+  padding: 25px;
+  background: #fff;
+  box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+  border: 1px solid black;
+  width: 1250px;
+  overflow-x: auto;
+}
+
+.d-flex table{
+  border: 1px solid black;
+  width: 1200px;
+  
+}
+
+.d-flex table tr{
+  outline: 1px solid black;
+}
+
+
+.container .title{
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  box-shadow: 0px 10px 10px rgba(0,0,0,0);
+  border-radius:15px 15px 0 0 ;
+  padding: 20px;
+  color: #f6f6f6;
+  border: 1px solid black;
+  width: 1250px;
+  
+}
+
+.container select{
+  width: 5rem;
+  height: 30px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+
+.container input[type="text"]
+{
+  width: 5rem;
+  height: 30px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.container input[type="search"]{
+  width: 7rem;
+}
+
+.alert{
+  top: 17rem;
+   left: 35rem;
+   position: absolute;
+   width:fit-content;
+   border: 2px solid black;
+   font-size: larger;
+   z-index: 5;
+  }
+
+@media screen and (max-width: 480px)
+{
+
+ .alert{
+   top: 8rem;
+   left: 10px;
+   position: absolute;
+   width:fit-content;
+   border: 2px solid black;
+   font-size: larger;
+   z-index: 5;
+ }
+
+ .main .empadd span{
+  margin-left: 0px;
+}
+
+ .title{
+  width: 1200px;
+}
+
+.container .d-flex{
+  
+  width: 1200px;
+}
+
+.d-flex table tr{
+  outline: 1px solid black;
+}
+.container{
+  margin-left: 0px;
+  overflow-x: auto;
+}
+}

@@ -1,0 +1,38 @@
+/*** dash ***/
+.dash-item {
+    height: 200px;
+    width: fit-content;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background: #FFFFFF;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    transition: .5s;
+}
+
+.dash-item:hover {
+    background: var(--primary);
+}
+
+.dash-item .dash-icon {
+    margin: 0 auto 30px auto;
+    width: 65px;
+    height: 65px;
+    transition: .5s;
+}
+
+.dash-item i,
+.dash-item h5,
+.dash-item p {
+    transition: .5s;
+}
+
+.dash-item:hover i,
+.dash-item:hover h5,
+.dash-item:hover p {
+    color: #FFFFFF !important;
+    
+}
+
