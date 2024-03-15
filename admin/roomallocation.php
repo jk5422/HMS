@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             <strong>Error! </strong> Bad no with particular room number is already allocated..!!
             </div>';
         } else {
-            $sql2="SELECT * FROM `room_allocate` WHERE Room_rid!=$srid AND Student_sid=$sid OR Room_rid=$srid AND Student_sid=$sid AND Bad_no NOT LIKE '$sbad';";
+            $sql2="SELECT * FROM `room_allocate` WHERE Room_rid!=$srid AND Student_sid=$sid OR Room_rid=$srid AND Student_sid=$sid AND Bad_no NOT LIKE '$sbad' OR Room_rid=$srid AND Student_sid!=$sid AND Bad_no LIKE '$sbad';";
             $res2 = mysqli_query($conn, $sql2);
             $cnt2 = mysqli_num_rows($res2);
 

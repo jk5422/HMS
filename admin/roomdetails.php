@@ -82,6 +82,7 @@ if(!isset($_SESSION['empemail']))
 
                                 $sql7 = "SELECT * FROM `room`,`room_allocate` WHERE room.rid=room_allocate.Room_rid AND room_allocate.Student_sid=$student;";
                                 $res7 = mysqli_query($conn, $sql7);
+                                $cnt=mysqli_num_rows($res7);
                                 $fetch3 = mysqli_fetch_assoc($res7);
 
                                 echo '
@@ -91,7 +92,7 @@ if(!isset($_SESSION['empemail']))
                                         <td>' . $fetch["sname"] . '</td>
                                         <td>' . $fetch2["hname"] . '</td>';
 
-                                        if($fetch3["rname"]=="" && $fetch3["Bad_no"]==""){
+                                        if($cnt <=0){
 
                                             echo '<td>--</td>';
                                             echo '<td>--</td>';

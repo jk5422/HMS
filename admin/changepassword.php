@@ -1,36 +1,33 @@
 <?php
 session_start();
+$_SESSION['cp']=false;
 include '../config/db.php';
-
-if(isset($_SESSION['cp']) && $_SESSION['cp']==true ){
-    echo '<div class="alert alert-success">
-                <strong>Success! </strong> password update Successfull..!!
-                </div>';
-    unset($_SESSION['cp']);
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $cpass=$_POST["cpassword"];
 
-    if ($username != "" && $password != "") {
-        $sql = "SELECT * FROM `employee` WHERE Emp_email LIKE '$username'";
+    if ($username != "" && $password != "" && $cpass!="") {
+        $sql = "SELECT * FROM `employee` where 	Emp_email LIKE '$username'";
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if ($num == 1) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                if (password_verify($password, $row['Password'])) {
-                    $_SESSION['empemail'] = $username;
-                    $_SESSION['empname'] = $row['Emp_name'];
-                    $_SESSION['empid']=$row['Empid '];
-                    $_SESSION['wmsg'] = true;
 
-                    header("location: ./dashboard.php");
-                } else {
-                    echo '<div class="alert alert-danger"  id="success-alert" >
-                    <strong>Error! </strong> Invalid Credentials
-                    </div>';
-                    
+            if($password!=$cpass){
+                echo '<div class="alert alert-success" >
+            <strong>Error! </strong> Password and Confirm Password must be same
+            </div>';
+            }
+            else
+            {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $sql1="UPDATE `employee` SET Password ='$hash' WHERE Emp_email LIKE '$username'";
+                $res1=mysqli_query($conn,$sql1);
+
+                if($res1){
+                    $_SESSION['cp']=true;
+                    header("location: ./index.php");
                 }
             }
         } 
@@ -66,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="../css/sweetalert.css">
-    <title>Admin Login | HMS</title>
+    <title>Forgot admin Password | HMS</title>
 </head>
 <body>
 <div class="wrapper">
@@ -74,25 +71,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="../logo/hms.png" alt="HMS">
         </div>
         <div class="text-center mt-4 name">
-            Admin  Login
+            Forgot Admin Password
         </div>
-        <form class="p-3 mt-3" method="post" action="./index.php">
+        <form class="p-3 mt-3" method="post" action="./changepassword.php">
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
                 <input type="email" name="username" id="userName" placeholder="Enter Your Email" >
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd"  placeholder="Password">
+                <input type="password" name="password" id="pwd"  placeholder="New Password">
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="password" name="cpassword" id="cpwd"  placeholder="Confirm New Password" onblur="passcheck()">
             </div>
             <div class="align-items-center">
             <input class="form-check-input" type="checkbox" onclick="myFunction()" />
                                         <label class="ms-2 form-check-label" for="form1Example3"> Show password </label>
         </div>
-            <button class="btn mt-3" type="submit" >Login</button>
+            <button class="btn mt-3" type="submit" >Submit</button>
         </form>
         <div class="text-center fs-6">
-            <a href="./changepassword.php">Forget password?</a>
+            <a href="./index.php">Back to Login</a>
         </div>
     </div>
 </body>
@@ -108,14 +109,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function myFunction() {
         var y = document.getElementById("pwd");
+        var x = document.getElementById("cpwd");
 
-
-        if (y.type === "password") {
-
+        if (y.type === "password" || x.type === "password") {
+            x.type = "text";
             y.type = "text";
         } else {
-
+            x.type = "password";
             y.type = "password";
+        }
+    }
+
+    function passcheck() {
+        var p = document.getElementById("pwd").value;
+        var q = document.getElementById("cpwd").value;
+        if (p != q) {
+            Swal.fire({
+                icon: 'error',
+                title: '!...Error...!',
+                text: 'password and confirm password value mismatch..!',
+            })
+        }
+        else
+        {
+            return;
         }
     }
     </script>

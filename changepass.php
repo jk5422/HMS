@@ -1,44 +1,36 @@
 <?php
 session_start();
-$_SESSION['wmsg'] = false;
+$_SESSION["cpass"]= false;
 include './config/db.php';
 
-if (isset($_SESSION['signup']) && $_SESSION['signup']==true) {
-    echo '<div class="alert alert-success">
-                <strong>Success! </strong> Registration Successfull..!!
-                </div>';
-    unset($_SESSION['signup']);
-}
 
-if(isset($_SESSION['cpass']) && $_SESSION['cpass']==true){
-    echo '<div class="alert alert-success">
-    <strong>Success! </strong> Password Updated Successfull..!!
-    </div>';
-unset($_SESSION['cpass']);
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $mobile = $_POST["mobile"];
     $password = $_POST["password"];
+    $cpass=$_POST["cpassword"];
 
-    if ($username != "" && $password != "") {
-        $sql = "SELECT * FROM student where smobile=$username";
+    if ($mobile != "" && $password != "" && $cpass!="") 
+    {
+        $sql = "SELECT * FROM student where smobile=$mobile";
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if ($num == 1) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                if (password_verify($password, $row['spassword'])) {
-                    $_SESSION['smobile'] = $username;
-                    $_SESSION['sid'] = $row['sid'];
-                    $_SESSION['sname']=$row['sname'];
-                    $_SESSION['wmsg'] = true;
 
-                    header("location: ./dashboard.php");
-                } else {
-                    echo '<div class="alert alert-danger"  id="success-alert" >
-                    <strong>Error! </strong> Invalid Credentials
-                    </div>';
-                    
+            if($password!=$cpass){
+                echo '<div class="alert alert-success" >
+            <strong>Error! </strong> Password and Confirm Password must be same
+            </div>';
+            }
+            else
+            {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $sql1="UPDATE `student` SET `spassword`='$hash' WHERE smobile LIKE '$mobile'";
+                $res1=mysqli_query($conn,$sql1);
+
+                if($res1){
+                    $_SESSION['cpass']=true;
+                    header("location: ./login.php");
                 }
             }
         } 
@@ -66,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | HMS</title>
+    <title>Forgot Password | HMS</title>
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -90,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="./css/ftcustm.css">
     <link rel="stylesheet" href="./css/register.css">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/sweetalert.css">
 </head>
 
 <body>
@@ -106,19 +99,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="card shadow-2-strong">
                             <div class="card-body p-5 text-center">
 
-                                <h3 class="mb-3">Sign in</h3>
-                                <form action="./login.php" method="post">
+                                <h3 class="mb-3">Forgot Password</h3>
+                                <form action="./changepass.php" method="post">
                                     <div class="form-outline mb-4">
-                                        <input type="tel" class="form-control form-control-lg" name="username" placeholder="Enter Mobile " onkeypress="return isNumber(event)"  />
+                                        <input type="tel" class="form-control form-control-lg" name="mobile" placeholder="Enter Mobile " onkeypress="return isNumber(event)"  />
 
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="password" class="form-control  form-control-lg" placeholder="Password" name="password" />
+                                        <input type="password" id="password" class="form-control  form-control-lg" placeholder="New Password" name="password" />
 
                                     </div>
 
-                                    
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="cpassword" class="form-control  form-control-lg" placeholder="Confirm New Password" name="cpassword" onblur="passcheck()" />
+
+                                    </div>
+
+
 
                                     <!-- Checkbox -->
                                     <div class="form-check d-flex justify-content-start mb-4">
@@ -128,14 +126,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                                     <div class="form-check d-flex justify-content-start mb-4">
-                                        <button class="btn btn-primary btn-lg btn-block btn-outline-dark" type="submit">Login</button>
-                                        <a href="./changepass.php" class="forgot mt-2">Forgot password ?</a>
+                                        <button class="btn btn-primary btn-lg btn-block btn-outline-dark" type="submit">Submit</button>
+                                        <a href="./login.php" class="forgot mt-2">Go back to login</a>
                                     </div>
 
                                 </form>
 
-                                <hr class="">
-                                <a href="./register.php"> New user? Signup </a>
+                            
 
                             </div>
                         </div>
@@ -155,6 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- main page js -->
 <script src="js/main.js"></script>
+<script src="./js/sweetalert.js"></script>
+
 <script>
     $(".alert").fadeTo(2000, 500).fadeOut(500, function() {
         $(".alert").fadeOut(500);
@@ -162,14 +161,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function myFunction() {
         var y = document.getElementById("password");
+        var z = document.getElementById("cpassword");
 
-
-        if (y.type === "password") {
+        if (y.type === "password" && z.type === "password") {
 
             y.type = "text";
+            z.type = "text";
+
         } else {
 
             y.type = "password";
+            z.type = "password";
+
+        }
+    }
+
+    function passcheck() {
+        var p = document.getElementById("password").value;
+        var q = document.getElementById("cpassword").value;
+        if (p != q) {
+            Swal.fire({
+                icon: 'error',
+                title: '!...Error...!',
+                text: 'password and confirm password value mismatch..!',
+            })
+        }
+        else
+        {
+            return;
         }
     }
 

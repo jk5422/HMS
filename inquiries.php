@@ -4,7 +4,7 @@ include './config/db.php';
 if (!isset($_SESSION['smobile'])) {
     header("location: ./login.php");
 }
-$sid=$_SESSION['sid'];
+$sid = $_SESSION['sid'];
 
 ?>
 
@@ -63,7 +63,7 @@ $sid=$_SESSION['sid'];
 
 
         <div class="main">
-            
+
 
             <div class="container-inq">
                 <div class="title">
@@ -101,7 +101,7 @@ $sid=$_SESSION['sid'];
                             $res7 = mysqli_query($conn, $sql7);
                             $fetch1 = mysqli_fetch_assoc($res7);
 
-                            $date=date_create($row["Date"]);
+                            $date = date_create($row["Date"]);
 
                             echo '
                                         <tr>
@@ -109,34 +109,26 @@ $sid=$_SESSION['sid'];
                                         <td>' . $fetch1["sname"] . '</td>
                                         <td>' . $fetch["sname"] . '</td>
                                         <td>' . $row["Form_no"] . '</td>
-                                        <td>' . date_format($date,"d-m-Y") . '</td>';
+                                        <td>' . date_format($date, "d-m-Y") . '</td>';
 
-                                        if($row["isaccepted"]=='0')
-                                        {
-                                            echo '<td>Rejected</td>';
-                                        }
-                                        else if($row["isaccepted"]=='1')
-                                        {
-                                            echo '<td>Accepted</td>';
-                                        }
-                                        else
-                                        {
-                                            echo '<td>Pending</td>';
-                                        }
+                            if ($row["isaccepted"] == '0') {
+                                echo '<td>Rejected</td>';
+                            } else if ($row["isaccepted"] == '1') {
+                                echo '<td>Accepted</td>';
+                            } else {
+                                echo '<td>Pending</td>';
+                            }
 
-                                        if($row["iscancel"]=='0')
-                                        {
-                                            echo '<td>Not Cancelled</td>';
-                                        }
-                                        else if($row["iscancel"]=='1')
-                                        {
-                                            echo '<td>Cancelled</td>';
-                                        }
-                                        
+                            if ($row["iscancel"] == '0') {
+                                echo '<td>Not Cancelled</td>';
+                            } else if ($row["iscancel"] == '1') {
+                                echo '<td>Cancelled</td>';
+                            }
 
-                                        echo '<td><a href="./download.php?frmid='.$row["Form_no"].'"><i class="fas fa-file-download fa-lg"></i></a></td>';
-                                        
-                                       echo '</tr>
+
+                            echo '<td><a href="./download.php?frmid=' . $row["Form_no"] . '"><i class="fas fa-file-download fa-lg"></i></a></td>';
+
+                            echo '</tr>
                                         ';
                         }
                         ?>
@@ -197,11 +189,9 @@ $sid=$_SESSION['sid'];
         //         alert("Downloaded")
         //     }
         // });
-            
 
-// }
-        
 
+        // }
     </script>
 
 
